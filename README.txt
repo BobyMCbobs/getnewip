@@ -59,12 +59,14 @@ This script works well when paired with uploadnewip (for server side).
 
       Example:
 
-        Host server1
+        Host server1-ext
           HostName 123.12.123.123
           User bob
           IdentityFile ~/.ssh/key
 
       This configuration is important, as the data will be interpreted in such a way.
+      
+      The variable 'ext_ssh_config' must contain the name of the external host in your SSH config file.
 
 -- Running --
 
