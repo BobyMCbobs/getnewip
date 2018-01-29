@@ -18,8 +18,8 @@ SSHcfgHost=''
 isLooped=0
 #install new ip without checking if home
 fetchIPNoCheck=0
-#Scripts folder (ie: $HOME/Scripts)
-scriptsFolder='$HOME/.scripts'
+#Scripts folder (ie: $HOME/.scripts)
+scriptsFolder='$HOME/.getnewip'
 #don't run unless owner is logged in
 checkIfUserIsLoggedIn=1
 #amount of time between loops (in seconds)
