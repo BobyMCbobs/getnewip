@@ -2,6 +2,8 @@ Welcome to getnewip by BobyMCbobs
 
 This script works well when paired with uploadnewip (for server side).
 
+This has been tested on Linux (Raspbian, Ubuntu), unsure about FreeBSD or MacOS support.
+
 -- Installing --
 
   Simply run './install.sh' (or 'bash install.sh') to launch the installer following the steps to setup getnewhomeip how you want it.
