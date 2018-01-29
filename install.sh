@@ -217,14 +217,18 @@ Continue? [y|n]"
 
 function copy_to_location() {
 #copy script to location
-	if ! sudo cp custom-$purpose_name-getnewip $prog_name_location && sudo chmod +x $prog_name_location && ls $prog_name_location > /dev/null
+	if ! sudo cp custom-$purpose_name-getnewip $prog_name_location && ls $prog_name_location > /dev/null
 	then
 		echo "> Copy failed."
 		exit
 	fi
-	echo "> Copy complete.
+	
+	if sudo chmod +x $prog_name_location
+	then
+		echo "> Copy complete.
 > Removing temp file 'custom-$purpose_name-getnewip'"
-	rm custom-$purpose_name-getnewip
+		rm custom-$purpose_name-getnewip
+	fi
 }
 
 function make_service_file() {
