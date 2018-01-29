@@ -201,6 +201,8 @@ Continue? [y|n]"
 		fi
 	fi
 
+	run_config_tests
+
 	echo "> Making temp file 'custom-$purpose_name-getnewip'"
 	cp getnewip custom-$purpose_name-getnewip
 
@@ -215,6 +217,54 @@ Continue? [y|n]"
 
 }
 
+function run_config_tests() {
+	#check to make sure config is ok
+
+	if ! [ -f $HOME/.ssh/config ] && cat $HOME/.ssh/config | grep -w $ext_ssh_config | awk '{print $2}'
+	then
+		echo "> SSH config not setup."
+		exit
+	else
+		echo "> SSH config is vaild."
+		failure=0
+	fi
+
+	if ! ping -q -c 1 -W 1 $localrefdevice > /dev/null
+	then
+		echo "> Could not find '$localrefdevice'."
+		failure=1
+	else
+		if port_test $localrefdevice $port1
+		then
+			echo "> Port '$port1' open on '$localrefdevice'."
+		fi
+		if port_test $localrefdevice $port2
+		then
+			echo "> Port '$port2' open on '$localrefdevice'."
+		fi
+		failure=0
+	fi
+
+	if [ $failure = "1" ]
+	then
+		echo "Continue anyways? [y|n]"
+		read continue_var
+
+		if [ $continue_var = "n" ]
+		then
+			exit
+		fi
+	fi
+}
+
+function port_test() {
+	deviceIP=$1
+	devicePort=$2
+	checklTP1=$(nc -zv $deviceIP $devicePort) #80
+	exStat=$?
+	return $exStat
+}
+
 function copy_to_location() {
 #copy script to location
 	if ! sudo cp custom-$purpose_name-getnewip $prog_name_location && ls $prog_name_location > /dev/null
@@ -222,7 +272,7 @@ function copy_to_location() {
 		echo "> Copy failed."
 		exit
 	fi
-	
+
 	if sudo chmod +x $prog_name_location
 	then
 		echo "> Copy complete.
@@ -286,20 +336,6 @@ function setup() {
 		echo "> DropBox Uploader config made."
 	fi
 }
-
-#if [ ! -f getnewip.config ]
-#then
-#	personalise_prog
-#	where_to_store
-
-#elif [[ -f getnewip.config ]] && [[ $first_var = "-l" ]]
-#then
-#	. getnewip.config
-
-#else
-#	personalise_prog
-#	where_to_store
-#fi
 
 make_edit
 make_service_file
