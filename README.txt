@@ -4,7 +4,7 @@ This script works well when paired with uploadnewip (for server side).
 
 -- Installing --
 
-  Simply run './install.sh' to launch the installer following the steps to setup getnewhomeip how you want it.
+  Simply run './install.sh' (or 'bash install.sh') to launch the installer following the steps to setup getnewhomeip how you want it.
 
   -- Configurations --
 
