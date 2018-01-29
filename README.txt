@@ -76,6 +76,8 @@ This has been tested on Linux (Raspbian, Ubuntu), unsure about FreeBSD or MacOS 
 
   Otherwise, if you want to manually run to fetch your new IP, run your customised version with a ' -n' for no looping or checking for internet.
 
--- Removing --
+-- Removing and Upgrading. --
 
   Run './install.sh -r' and follow steps.
+
+  The fetch a new copy and run through the install process again.
