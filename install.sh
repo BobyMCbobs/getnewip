@@ -347,7 +347,7 @@ echo "
 Complete!
 
 Notes:
-	- Your scripts is $HOME/.scripts
+	- getnewip related stuff is in '$HOME/.getnewip'
 	- To run without loop and checking for internet, use '$prog_name -n'.
 	- To run looping and checking for internet, use '$prog_name -s'
 	- To view what the last IP downloaded is, use '$prog_name -i'
