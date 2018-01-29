@@ -47,6 +47,24 @@ This script works well when paired with uploadnewip (for server side).
 
   The Dropbox key is required for uploading to Dropbox.
   You must create a Dropbox app over at https://www.dropbox.com/developers/apps, then click generate OAuth2 access token. Use this token/key in your config.
+  
+      -- SSH config file --
+
+      A file called ~/.ssh/config must exist has have a config formatted like this in it:
+
+        Host NICKNAME
+          HostName SERVER.ADDRESS.NUMBERS
+          User USERNAME
+          IdentityFile ~/.ssh/MYKEY (optional)
+
+      Example:
+
+        Host server1
+          HostName 123.12.123.123
+          User bob
+          IdentityFile ~/.ssh/key
+
+      This configuration is important, as the data will be interpreted in such a way.
 
 -- Running --
 
