@@ -81,7 +81,7 @@ Continue? [y|n]"
 			echo "> No Systemd service found or removed."
 		fi
 
-		if sudo rm $ipproglocation/$program_name
+		if sudo rm $ipproglocation/$program_name && rm -r $HOME/.getnewip
 		then
 			echo "> Complete."
 		fi
@@ -277,7 +277,13 @@ function copy_to_location() {
 	then
 		echo "> Copy complete.
 > Removing temp file 'custom-$purpose_name-getnewip'"
-		rm custom-$purpose_name-getnewip
+
+		if [ ! $systemd_service_option = "n" ]
+		then
+			rm custom-$purpose_name-getnewip
+		else
+			mv custom-$purpose_name-getnewip getnewip-$purpose_name
+		fi
 	fi
 }
 
