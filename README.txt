@@ -81,3 +81,7 @@ This has been tested on Linux (Raspbian, Ubuntu), unsure about FreeBSD or MacOS 
   Run './install.sh -r' and follow steps.
 
   The fetch a new copy and run through the install process again.
+  
+-- Notes --
+
+  This program uses https://github.com/andreafabrizi/Dropbox-Uploader to upload to Dropbox. Thanks to Andrea Fabrizi for this.
