@@ -73,6 +73,7 @@ then
 else
 	#invalid arg
 	echo "> $option is not an option."
+	exit
 fi
 
 #create scripts folder if it doesn't exist
