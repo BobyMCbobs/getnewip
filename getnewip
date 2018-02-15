@@ -219,7 +219,7 @@ then
 	sed -i -e "s/$oldIPnum/$newIPnum/g" ~/.ssh/config
 	echo "> Done"
 else
-	echo "> IP remains the same, doing nothing."
+	echo "> IP hasn't changed from '$oldIPnum', doing nothing."
 fi
 
 }
