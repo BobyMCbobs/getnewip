@@ -85,3 +85,5 @@ This has been tested on Linux (Raspbian, Ubuntu), unsure about FreeBSD or MacOS 
 -- Notes --
 
   This program uses https://github.com/andreafabrizi/Dropbox-Uploader to upload to Dropbox. Thanks to Andrea Fabrizi for this.
+  
+  For a slim version, refer to github.com/BobyMCbobs/getnewip-mini (this is meant maily for Termux for Android).
