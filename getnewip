@@ -39,28 +39,28 @@ fi
 
 option=$1
 
-if [[ $option = "-n" ]]
-then
+case "$option" in
+	"-n")
 	#no loop.
 	isLooped=0
 	fetchIPNoCheck=1
 	echo "> Running single check."
+	;;
 
-elif [[ $option = "-s" ]]
-then
+	"-s")
 	#service mode, run as loop
 	isLooped=1
 	fechIPNoCheck=0
 	echo "> Running in service mode."
+	;;
 
-elif [[ $option = "-i" ]]
-then
+	"-i")
 	#display last downloaded IP
 	echo "> Last IP downloaded is $(cat $scriptsFolder/currentip-$purpose.txt)"
 	exit
+	;;
 
-elif [[ $option = "-h" ]] || [[ $option = "" ]]
-then
+	* | "-h")
 	echo "-- Help Menu --
 
 	Running Modes:
@@ -70,11 +70,7 @@ then
 
 	-h for this menu."
 	exit
-else
-	#invalid arg
-	echo "> $option is not an option."
-	exit
-fi
+esac
 
 #create scripts folder if it doesn't exist
 if [ ! -d $scriptsFolder ]
