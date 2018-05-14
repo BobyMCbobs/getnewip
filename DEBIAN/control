@@ -1,0 +1,9 @@
+Package: getnewip
+Version: 2.0
+Architecture: all
+Maintainer: github.com/BobyMCbobs
+Depends: netcat, curl, bash, openssh-client
+Installed-Size: 48.2 kB
+Section: main
+Priority: optional
+Description: Download IP from dropbox to place in SSH config

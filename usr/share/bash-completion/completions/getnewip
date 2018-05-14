@@ -1,0 +1,10 @@
+_getnewip() { 
+    local cur files
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    files=$(ls /etc/getnewip/units) 
+    COMPREPLY=( $(compgen -W "${files}" -- ${cur}) )
+}
+
+#UNFINISHED
+#complete -F _getnewip getnewip

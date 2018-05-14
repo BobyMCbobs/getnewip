@@ -1,0 +1,13 @@
+[Unit]
+Description=If connected to internet, if not at home, fetch for new IP
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root
+ExecStart=/usr/bin/getnewip -s -a
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
