@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=/usr/bin/getnewip -s -a
+ExecStart=/usr/bin/getnewip -d -a
 Restart=on-abort
 
 [Install]
