@@ -1,0 +1,5 @@
+echo
+echo "-----------------------------------------------------------------------------------"
+echo "Please read 'getnewip -h service' for instructions and usage of systemd service."
+echo "-----------------------------------------------------------------------------------"
+echo

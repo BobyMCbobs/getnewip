@@ -1,5 +1,5 @@
 [Unit]
-Description=If connected to internet, if not at home, fetch for new IP
+Description=Sync dynamic public IP address of GNU/Linux servers with the hostname in a user's SSH config via Dropbox.
 After=network.target
 
 [Service]

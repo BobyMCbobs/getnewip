@@ -1,11 +1,11 @@
 all:
-	mkdir getnewip
-	sudo cp -r --no-preserve=ownership DEBIAN etc usr getnewip
+	fakeroot -u mkdir getnewip
+	fakeroot -u cp -r --no-preserve=ownership DEBIAN etc usr getnewip
 	dpkg-deb --build getnewip
-	sudo rm -r getnewip
+	fakeroot -u rm -r getnewip
 
 clean:
-	sudo rm -r getnewip*
+	fakeroot -u rm -r getnewip*
 
 install:
-	sudo apt install ./getnewip.deb
+	apt install ./getnewip.deb
