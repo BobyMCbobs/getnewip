@@ -118,6 +118,7 @@ Running Modes:
 	-t|--testmode			for test mode.
 	-l|--list			list available config files.
 	-m|--make-unit			make a unit config file.
+	-r|--remove-units		remove a unit config file.
 	-h|--help			print this menu.
 		config				get info on config files.
 		sshconfig			get info on setting up '~/.ssh/config'.
