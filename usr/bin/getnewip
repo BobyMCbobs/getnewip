@@ -566,7 +566,7 @@ case "$givenOpt" in
 		# service mode, run as loop.
 		shift
 		readonly isLooped=true
-		readonly fetchIPNoCheck=false
+		readonly fetchIPNoCheck=true
 		echo "> Running in service mode."
 		echo ">> Date: $(date)."
 		startMain "$@"
