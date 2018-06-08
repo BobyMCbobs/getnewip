@@ -4,16 +4,13 @@
 getnewip is a way to dodge having to setup an static IP address for a GNU/Linux devices.  
 Utilising Dropbox as a middle man for storing IP addresses, getnewip downloads the IP address of (a) given server(s) from as many Dropbox accounts/folders as intended.  
 (This is a companion program that pairs with [uploadnewip](https://gitlab.com/BobyMCbobs/uploadnewip))  
+On Arch Linux? Get it from the [AUR](https://aur.archlinux.org/packages/getnewip)  
 
 ##### Building
 Debian based: `make deb` (Dependencies: fakeroot)  
-Arch based:  
-1. cd into './support/arch'  
-2. `makepkg`  
 
 ##### Installation  
 Standard installation: `make install`  
-Arch: `makepkg -si` (when inside './support/arch')  
 
 ##### Usage  
 Standard use: `getnewip [ARGS]`  
