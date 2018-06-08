@@ -297,13 +297,14 @@ users=$(awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd)
 digit=[0-9]
 
 local var
-if [[ -z $localReferenceDevice || -z ${localTestPorts[@]} || -z $portCheckTimeOut || -z ${SSHcfgHost[@]} || -z $dropboxFolder || -z $gniUnit || -z $dropboxAppKey || -z ${includedUsers[@]} ]]
+if [[ -z $localReferenceDevice || -z ${localTestPorts[@]} || -z $portCheckTimeOut || -z ${SSHcfgHost[@]} || -z $dropboxFolder || -z $gniUnit || -z $dropboxAppKey || -z ${includedUsers[@]} || -z $pingServer ]]
 then
 	[ -z $opt ] && echo ">> Please fill in all required variabled -- Edit '/etc/getnewip/units/$configFile'." && exit 1
 	return 1
 else
 	[ ! "${#dropboxAppKey}" = 64 ] && echo ">> Dropbox key invalid." && return 1
 	[[ ! $portCheckTimeOut =~ $digit ]] && echo ">> 'portCheckTimeOut' must be a number." && return 1
+	[[ ! $pingServer =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] && echo ">> 'pingServer' must be a valid IPv4 address." && return 1
 	for port in ${localTestPorts[@]}
 	do
 		[[ ! $port =~ $digit ]] && return 1

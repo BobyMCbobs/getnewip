@@ -1,0 +1,18 @@
+# Maintainer: Caleb Woodbine <github.com/BobyMCbobs>
+pkgname=getnewip
+pkgver=2.1.1
+pkgrel=1
+pkgdesc="Sync dynamic public IP addresses of GNU/Linux servers with the hostname in a user's SSH config file, via Dropbox."
+arch=('any')
+url="https://github.com/BobyMCbobs/getnewip"
+license=('GPL')
+depends=('gnu-netcat' 'curl' 'bash' 'openssh')
+install=
+source=("https://gitlab.com/BobyMCbobs/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.zip")
+noextract=()
+md5sums=('4950a05fda9d52d2b49f1a738339d578')
+
+package() {
+	cd "$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}
