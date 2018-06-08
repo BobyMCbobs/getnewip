@@ -15,6 +15,7 @@ install:
 uninstall:
 	@rm -rf $(DESTDIR)$(PREFIX)/bin/getnewip
 	@rm -rf $(DESTDIR)$(COMPLETIONDIR)/getnewip
+	@rm -rf $(DESTDIR)/etc/systemd/system/getnewip.service
 
 deb:
 	@mkdir build
