@@ -8,7 +8,7 @@ install:
 	@mkdir -p $(DESTDIR)$(COMPLETIONDIR)
 	@cp -p getnewip $(DESTDIR)$(PREFIX)/bin
 	@cp -p getnewip.completion $(DESTDIR)$(COMPLETIONDIR)/getnewip
-	@cp -r -p etc $(DESTDIR)/etc
+	@cp -r -p etc/. $(DESTDIR)/etc
 	@chmod 755 $(DESTDIR)$(PREFIX)/bin/getnewip
 	@chmod 755 $(DESTDIR)$(COMPLETIONDIR)/getnewip
 
