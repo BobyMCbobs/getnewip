@@ -10,7 +10,7 @@ depends=('gnu-netcat' 'curl' 'bash' 'openssh')
 install=
 source=("https://gitlab.com/BobyMCbobs/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.zip")
 noextract=()
-md5sums=('4950a05fda9d52d2b49f1a738339d578')
+md5sums=('SKIP')
 
 package() {
 	cd "$pkgname-$pkgver"
