@@ -538,7 +538,8 @@ else
 	exit 1
 fi
 
-if id | grep -q -w sudo && which sudo > /dev/null
+hasSudo=$(sudo -nv 2>&1)
+if [ "$hasSudo" = "sudo: a password is required" ] && which sudo > /dev/null
 then
 	sudoProg="sudo"
 
