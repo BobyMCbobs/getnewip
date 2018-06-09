@@ -539,7 +539,7 @@ else
 fi
 
 hasSudo=$(sudo -nv 2>&1)
-if [ "$hasSudo" = "sudo: a password is required" ] && which sudo > /dev/null
+if [[ "$hasSudo" = "sudo: a password is required" || "$hasSudo" = "" || -z "$hasSudo" ]] && which sudo > /dev/null
 then
 	sudoProg="sudo"
 
