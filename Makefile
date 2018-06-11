@@ -11,6 +11,7 @@ install:
 	@cp -r -p etc/. $(DESTDIR)/etc
 	@chmod 755 $(DESTDIR)$(PREFIX)/bin/getnewip
 	@chmod 755 $(DESTDIR)$(COMPLETIONDIR)/getnewip
+	@mkdir $(DESTDIR)/etc/getnewip/units
 
 uninstall:
 	@rm -rf $(DESTDIR)$(PREFIX)/bin/getnewip
@@ -25,7 +26,7 @@ deb:
 	@dpkg-deb --build build
 	@mv build.deb getnewip.deb
 
-clean:	
+clean:
 	@fakeroot -u rm -r build getnewip.deb
 
 help:

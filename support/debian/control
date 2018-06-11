@@ -1,7 +1,7 @@
 Package: getnewip
 Version: 2.1.2
 Architecture: all
-Maintainer: github.com/BobyMCbobs
+Maintainer: https://gitlab.com/BobyMCbobs
 Depends: netcat, curl, bash, openssh-client
 Installed-Size: 48.2 kB
 Section: main
