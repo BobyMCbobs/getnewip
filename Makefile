@@ -21,13 +21,14 @@ uninstall:
 deb:
 	@mkdir build
 	@make DESTDIR=build install
-	@fakeroot -u cp -p -r support/debian build/DEBIAN
-	@fakeroot -u chown -R root:root build
+	@cp -p -r support/debian build/DEBIAN
+	@sudo chown -R root:root build
 	@dpkg-deb --build build
+	@sudo chown -R $$(whoami):$$(whoami) build
 	@mv build.deb getnewip.deb
 
 clean:
-	@fakeroot -u rm -r build getnewip.deb
+	@rm -r build getnewip.deb
 
 help:
 	@echo "Read 'README.md' for info on building."
