@@ -1,9 +1,9 @@
 Package: getnewip
-Version: 2.1.2
+Version: 2.2
 Architecture: all
 Maintainer: https://gitlab.com/BobyMCbobs
 Depends: netcat, curl, bash, openssh-client
 Installed-Size: 48.2 kB
 Section: main
 Priority: optional
-Description: Download IP from dropbox to place in SSH config
+Description: Sync dynamic public IP address of GNU/Linux servers with the hostname in a user's SSH config via Dropbox
