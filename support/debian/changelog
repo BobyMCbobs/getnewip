@@ -1,0 +1,21 @@
+getnewip (2.2.0-1) bionic; urgency=medium
+
+  * Added
+  * -----
+  * > -v|--version for displaying version information.
+  * > Extended compatibilty across distros (Ubuntu, Debian, Raspbian, Fedora, CentOS, openSUSE (Leap & Tumbleweed). 
+  *
+  * Changed
+  * -------
+  * > Debian package description.
+  * > unitName replaces gniUnit, to avoid confusion and match closer with uploadnewip.
+  * > Root group now owns the unit config file, 0600 permissions.
+  * > Test mode now overrides the same IP address (as it's supposed to).  
+  *
+  * Fixed
+  * -----
+  * > Correctly written bash instructions.
+  * > Now properly removes one or multiple given unit(s).
+  * > Permissions for units, to avoid errors -- In some distros users don't have groups of the same name.
+
+ -- Caleb Woodbine <calebwoodbine.public@gmail.com>  Tue, 24 Jul 2018 17:24:06 +1200

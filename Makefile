@@ -19,17 +19,25 @@ uninstall:
 	@rm -rf $(DESTDIR)/etc/systemd/system/getnewip.service
 	@rm -rf $(DESTDIR)/etc/getnewip
 
-deb:
-	@mkdir build
-	@make DESTDIR=build install
-	@cp -p -r support/debian build/DEBIAN
-	@sudo chown -R root:root build
-	@dpkg-deb --build build
-	@sudo chown -R $$(whoami):$$(whoami) build
-	@mv build.deb getnewip.deb
+prep-deb:
+	@mkdir -p build/getnewip
+	@cp -p -r support/debian build/getnewip/debian
+	@mkdir build/getnewip/debian/getnewip
+	@make DESTDIR=build/getnewip/debian/getnewip install
+
+deb-pkg: prep-deb
+	@cd build/getnewip/debian && debuild -b
+
+deb-src: prep-deb
+	@cd build/getnewip/debian && debuild -S
+
+build-zip:
+	@mkdir -p build/getnewip
+	@make DESTDIR=build/getnewip install
+	@cd build/getnewip && zip -r ../getnewip.zip .
 
 clean:
-	@rm -r build getnewip.deb
+	@rm -r build
 
 help:
 	@echo "Read 'README.md' for info on building."

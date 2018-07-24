@@ -3,7 +3,7 @@
 # getnewip
 
 #
-# Copyright (C) 2018 Caleb Woodbine <gitlab.com/BobyMCbobs>
+# Copyright (C) 2018 Caleb Woodbine <calebwoodbine.public@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -110,7 +110,7 @@ Amount of time until curl requests drops:
 
 	*)
 echo "------------------------
-Usage: getnewip -[n,s,t] [unit config file]
+Usage: getnewip -[OPT] [UNIT]
 
 Running Modes:
 	-n|--no-loop|-o|--once		perform a single check and exit.
