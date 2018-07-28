@@ -24,7 +24,7 @@ _getnewip() {
 	if [[ $cword -eq 1 ]]
 	then
 		COMPREPLY=( $( compgen -W "-n --no-loop -o --once -d --daemonise --daemonize
-		-t --testmode -l --list -m --make-unit -r --remove-unit -h --help -v --version" -- ${cur}) )
+		-t --testmode -l --list -m --make-unit -r --remove-unit -h --help -v --version --print-blank-config" -- ${cur}) )
 		[[ $COMPREPLY ]] && return
 	fi
 }

@@ -42,6 +42,9 @@ Generate a config unit: `getnewip -m`
 3. Under 'OAuth2' find 'Generate access token'. Use the string of characters returned in variable 'dropboxAppKey' for a unit config file.  
 
 ##### Notes
-- This has been testing on GNU/Linux distributions: Ubuntu (18.04, 16.04), Debian (9.x), Raspbian (9.x), Fedora (28), CentOS (7), and openSUSE (Leap 15, Tumbleweed).  
+- This has been testing on GNU/Linux distributions: Arch Linux, CentOS (7), Debian (9.x), Fedora (28), openSUSE (Leap 15, Tumbleweed), Raspbian (9.x), and Ubuntu (16.04, 18.04).  
 - Currently only supports Systemd, no plans currently otherwise.  
 - For a slim version (built for [Termux](https://termux.com/) on Android) -- refer to [getnewip-mini](https://gitlab.com/BobyMCbobs/getnewip-mini).  
+- Building a debian package requires 'build-essential'.
+- Main repository is on [GitLab](https://gitlab.com/BobyMCbobs/getnewip). There is a [GitHub](https://github.com/BobyMCbobs/getnewip) mirror.
+

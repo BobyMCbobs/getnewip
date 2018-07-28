@@ -635,6 +635,10 @@ case "$givenOpt" in
 		printVersion
 	;;
 
+	--print-blank-config)
+		getDefaultUnitConfig
+	;;
+
 	*)
 		# if not args are given, show help.
 		helpMenu
