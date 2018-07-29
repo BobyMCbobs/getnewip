@@ -28,10 +28,10 @@ Options:
 	Disabling systemd service installation: `make NOSYSTEMD=true install`  
 
 ##### Dependencies  
-Ubuntu/Debian/Raspbian: netcat curl bash openssh-client  
-Arch Linux: gnu-netcat curl bash openssh  
-Fedora/CentOS: nc curl bash openssh-clients  
-openSUSE: netcat-openbsd curl bash openssh  
+Ubuntu/Debian/Raspbian: netcat curl bash openssh-client nano iputils-ping  
+Arch Linux: gnu-netcat curl bash openssh nano iputils  
+Fedora/CentOS: nc curl bash openssh-clients nano iputils  
+openSUSE: netcat-openbsd curl bash openssh nano iputils  
 
 ##### Usage
 Standard use: `getnewip [ARGS]`  

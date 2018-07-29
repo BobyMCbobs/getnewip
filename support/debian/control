@@ -7,5 +7,5 @@ Build-Depends: debhelper (>= 9)
 
 Package: getnewip
 Architecture: all
-Depends: netcat, curl, bash, openssh-client
+Depends: netcat, curl, bash, openssh-client, nano
 Description: Sync dynamic public IP address of GNU/Linux servers with the hostname in a user's SSH config via Dropbox
