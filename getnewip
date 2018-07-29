@@ -228,13 +228,13 @@ function IPfromDB() {
 
 echo "> Downloading copy of IP from dropbox."
 tmpFile="/tmp/getnewip-response-$RANDOM-temp"
-newIPnum=$(curl -m $curlTimeoutTime --progress-bar -X POST --globoff -D "$tmpFile" --header "Authorization: Bearer $dropboxAppKey" --header "Dropbox-API-Arg: {\"path\": \"/$dropboxFolder/currentip-$unitName.txt\"}" "https://content.dropboxapi.com/2/files/download")
+newIPnum=$(curl -m "$curlTimeoutTime" --progress-bar -X POST --globoff -D "$tmpFile" --header "Authorization: Bearer $dropboxAppKey" --header "Dropbox-API-Arg: {\"path\": \"/$dropboxFolder/currentip-$unitName.txt\"}" "https://content.dropboxapi.com/2/files/download")
 checkHttpResponse
 
-if [[ $newIPnum =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
+if [[ "$newIPnum" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
 then
 	echo "> Downloaded IP successfully."
-	rm $tmpFile
+	rm "$tmpFile"
 	modifySSHConfig
 else
 	echo ">> Download Failed. Retrying."
@@ -250,7 +250,7 @@ function checkHttpResponse() {
 local response tempFile
 response=$?
 
-if [ ! $response = 0 ]
+if [ ! "$response" = 0 ]
 then
 	echo ">> Failed to access dropbox in some way." && return 1
 fi
@@ -270,25 +270,25 @@ local user SSHconfigFileLocation
 
 for user in "${includedUsers[@]}"
 do
-	homeDir=$(echo $(getent passwd $user )| cut -d : -f 6)
-	[ -z $homeDir ] && echo ">> Could not find home directory of user '$user'."
+	homeDir=$(getent passwd "$user" | cut -d : -f 6)
+	[ -z "$homeDir" ] && echo ">> Could not find home directory of user '$user'."
 	if [[ $(whoami) = $user || $(id -g) = 0 ]]
 	then
-		SSHconfigFileLocation=$homeDir/.ssh/config
-		if [ -f $SSHconfigFileLocation ]
+		SSHconfigFileLocation="$homeDir/.ssh/config"
+		if [ -f "$SSHconfigFileLocation" ]
 		then
 			for givenHost in "${SSHcfgHost[@]}"
 			do
-				oldIPnum=$(ssh -G $givenHost | grep -i "HostName " | head -n 1 | cut -d" " -f2)
-				[[ $(id -g) = 0 ]] && oldIPnum=$(su $user -c "ssh -G $givenHost | grep -i 'HostName ' | head -n 1 | cut -d' ' -f2")
+				oldIPnum=$(ssh -G "$givenHost" | grep -i "HostName " | head -n 1 | cut -d" " -f2)
+				[[ $(id -g) = 0 ]] && oldIPnum=$(su "$user" -c "ssh -G $givenHost | grep -i 'HostName ' | head -n 1 | cut -d' ' -f2")
 
 				[[ ! ${#includedUsers[@]} = 1 ]] && echo "> Updating '$user'."
-				[[ -z $oldIPnum ]] && echo ">> Invalid host '$givenHost'." && return 1
+				[[ -z "$oldIPnum" ]] && echo ">> Invalid host '$givenHost'." && return 1
 
-				if [ ! $oldIPnum = $newIPnum ] || $changeIPRegardless
+				if [ ! "$oldIPnum" = "$newIPnum" ] || "$changeIPRegardless"
 				then
 					echo "> Host '$givenHost': Changing IP from $oldIPnum to $newIPnum in config"
-					sed -i -e "s/$oldIPnum/$newIPnum/g" $SSHconfigFileLocation || echo ">> Failed to update IP for '$givenHost' for user '$user'."
+					sed -i -e "s/$oldIPnum/$newIPnum/g" "$SSHconfigFileLocation" || echo ">> Failed to update IP for '$givenHost' for user '$user'."
 				else
 					echo "> Host '$givenHost': IP hasn't changed from '$oldIPnum', doing nothing..."
 				fi
@@ -306,43 +306,43 @@ done
 function variableCheck() {
 # check for empty variables in config file
 
-local pt users host port digit
+local opt users host port digit
 opt="$@"
 users=$(awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd)
 digit=[0-9]
 
 local var
-if [[ -z $localReferenceDevice ]] || \
+if [[ -z "$localReferenceDevice" ]] || \
    [[ -z "${localTestPorts}" ]] || \
-   [[ -z $portCheckTimeOut ]] || \
+   [[ -z "$portCheckTimeOut" ]] || \
    [[ -z "${SSHcfgHost}" ]] || \
-   [[ -z $dropboxFolder ]] || \
-   [[ -z $unitName ]] || \
-   [[ -z $dropboxAppKey ]] || \
+   [[ -z "$dropboxFolder" ]] || \
+   [[ -z "$unitName" ]] || \
+   [[ -z "$dropboxAppKey" ]] || \
    [[ -z "${includedUsers}" ]] || \
-   [[ -z $pingServer ]]
+   [[ -z "$pingServer" ]]
 then
-	[ -z $opt ] && echo ">> Please fill in all required variabled -- Edit '/etc/getnewip/units/$configFile'." && exit 1
+	[ -z "$opt" ] && echo ">> Please fill in all required variabled -- Edit '/etc/getnewip/units/$configFile'." && exit 1
 	return 1
 else
 	[ ! "${#dropboxAppKey}" = 64 ] && echo ">> Dropbox key invalid." && return 1
-	[[ ! $portCheckTimeOut =~ $digit ]] && echo ">> 'portCheckTimeOut' must be a number." && return 1
-	[[ ! $pingServer =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] && echo ">> 'pingServer' must be a valid IPv4 address." && return 1
+	[[ ! "$portCheckTimeOut" =~ $digit ]] && echo ">> 'portCheckTimeOut' must be a number." && return 1
+	[[ ! "$pingServer" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] && echo ">> 'pingServer' must be a valid IPv4 address." && return 1
 	for port in "${localTestPorts[@]}"
 	do
-		[[ ! $port =~ $digit ]] && return 1
+		[[ ! "$port" =~ $digit ]] && return 1
 	done
 	for user in "${includedUsers[@]}"
 	do
-		homeDir=$(echo $(getent passwd $user ) | cut -d : -f 6)
-		if ! echo $users | grep -q -w $user
+		homeDir=$(getent passwd "$user" | cut -d : -f 6)
+		if ! echo "$users" | grep -q -w "$user"
 		then
 			echo ">> Could not find user '$user'."
 			return 1
 		else
 			for host in "${SSHcfgHost[@]}"
 			do
-				! grep -q -w $host $homeDir/.ssh/config && echo ">> Cannot find SSH config file for user '$user'." && return 1
+				! grep -q -w "$host" "$homeDir/.ssh/config" && echo ">> Cannot find SSH config file for user '$user'." && return 1
 			done
 		fi
 	done
@@ -361,13 +361,13 @@ echo "${configFiles[@]}" | grep -q -w 'getnewip-example' && helpMenu config
 
 for configFile in $configFiles
 do
-	! echo $configFile | grep -q ".conf" && configFile="$configFile.conf"
+	! echo "$configFile" | grep -q ".conf" && configFile="$configFile.conf"
 
-	if [ -f /etc/getnewip/units/$configFile ]
+	if [ -f "/etc/getnewip/units/$configFile" ]
 	then
 		cleanVariables
 		echo "> Loading config '$configFile'."
-		. /etc/getnewip/units/$configFile
+		. /etc/getnewip/units/"$configFile"
 		variableCheck && main || echo "> Unit config variables not OK. Please fix stated problem with unit config."
 	else
 		echo ">> Config '$configFile' not found."
@@ -391,12 +391,12 @@ do
 	out="$unit $out"
 done
 
-if [ -z $opt ]
+if [ -z "$opt" ]
 then
-	if [ $counter = 0 ]
+	if [ "$counter" = 0 ]
 	then
 		echo ">> No units available. Please create one. 'getnewip -h config' for help, 'getnewip -m' to make one."
-	elif [ $counter = 1 ]
+	elif [ "$counter" = 1 ]
 	then
 		echo "$counter available unit: $out"
 	else
@@ -411,16 +411,16 @@ fi
 function makeNewConfigUnit() {
 # create a new unit file
 
-local user file
+local user file cont
 user=$(whoami)
 
-if [ ! -f $tempFile ] || [ -z $tempFile ]
+if [ ! -f "$tempFile" ] || [ -z "$tempFile" ]
 then
 	tempFile="/tmp/getnewip-unit-$RANDOM$RANDOM-temp"
-	getDefaultUnitConfig > $tempFile
+	getDefaultUnitConfig > "$tempFile"
 fi
 
-nano $tempFile
+nano "$tempFile"
 
 echo "
 	0) [E]dit config file again.
@@ -431,32 +431,41 @@ echo "
 
 read -r -p ": " continuevar
 echo
-case $continuevar in
+case "$continuevar" in
 	0|e|E)
 		makeNewConfigUnit
 	;;
 
 	1|r|R)
-		[ -f $tempFile ] && rm $tempFile && echo "> Cleaned up temporary files."
+		[ -f "$tempFile" ] && rm "$tempFile" && echo "> Cleaned up temporary files."
 		tempFile=
 		makeNewConfigUnit
 	;;
 
 	2|s|S)
-		if . $tempFile && variableCheck a
+		if . "$tempFile" && variableCheck a
 		then
-			$sudoProg install -g root -o $user -m 0600 $tempFile /etc/getnewip/units/$unitName.conf && echo "> Config '$unitName' saved." && exit 0
-			echo ">> Failed to write config." && [ -f $tempFile ] && rm $tempFile && echo "> Cleaned up temporary files."  && exit 1
+			if "$sudoProg" install -g root -o "$user" -m 0600 "$tempFile" "/etc/getnewip/units/$unitName.conf"
+			then
+				echo "> Config '$unitName' saved."
+				checkToEnableSystemdService
+				exit 0
+			else
+				echo ">> Failed to write config."
+				[ -f "$tempFile" ] && rm "$tempFile" && echo "> Cleaned up temporary files."  && exit 1
+			fi
 		else
-			echo ">> Variables not set correctly. Please fix them." && sleep 1 && makeNewConfigUnit
+			echo ">> Variables not set correctly. Please fix them." 
+			read -r -p "> Press enter to continue... " cont
+			makeNewConfigUnit
 		fi
 	;;
 
 	q|Q)
-		[ -f $tempFile ] && rm $tempFile && echo "> Cleaned up temporary files."
+		[ -f "$tempFile" ] && rm "$tempFile" && echo "> Cleaned up temporary files."
 		for file in /tmp/getnewip-unit-*-temp
 		do
-			[ -f $file ] && rm $file
+			[ -f "$file" ] && rm "$file"
 		done
 		exit 0
 	;;
@@ -464,10 +473,29 @@ esac
 
 }
 
+function checkToEnableSystemdService() {
+# check to enable systemd service upon creation on a unit, if using systemd.
+
+local cont
+which systemd > /dev/null || return 1
+if ! systemctl is-active --quiet getnewip
+then
+	echo "> It appears that the systemd server is not enabled."
+	read -r -p "> Would you like to enable it? [y|*] " cont
+	case "$cont" in
+		y|Y)
+			"$sudoProg" systemctl start getnewip || return 1
+			"$sudoProg" systemctl enable getnewip || return 1
+		;;
+	esac
+fi
+
+}
+
 function checkSettings() {
 # check /etc/getnewip/getnewip-settings.conf
 
-if ${loopDelayTime+"false"} || [ -z $loopDelayTime ] || [ -z $curlTimeoutTime ]
+if ${loopDelayTime+"false"} || [ -z "$loopDelayTime" ] || [ -z "$curlTimeoutTime" ]
 then
 	echo ">> Cannot find important config data." && exit 1
 fi
@@ -477,12 +505,12 @@ if ! [[ -z "${disabledUnits}" ]]
 then
 	for unit in "${disabledUnits[@]}"
 	do
-		[ ! -f /etc/getnewip/units/$unit.conf ] && echo ">> Cannot find unit '$unit' to disable. Ignoring..."
+		[ ! -f /etc/getnewip/units/"$unit".conf ] && echo ">> Cannot find unit '$unit' to disable. Ignoring..."
 	done
 fi
 
-! [[ $loopDelayTime =~ [0-9] ]] && echo ">> Variable 'loopDelayTime' must only contain numbers." && exit 1
-! [[ $curlTimeoutTime =~ [0-9] ]] && echo ">> Variable 'curlTimeoutTime' must only contain numbers." && exit 1
+! [[ "$loopDelayTime" =~ [0-9] ]] && echo ">> Variable 'loopDelayTime' must only contain numbers." && exit 1
+! [[ "$curlTimeoutTime" =~ [0-9] ]] && echo ">> Variable 'curlTimeoutTime' must only contain numbers." && exit 1
 
 }
 
@@ -491,18 +519,18 @@ function removeUnit() {
 local unitFiles unit unitFullFileName
 unitFiles="$@"
 
-[[ -z $unitFiles ]] && echo ">> No configs given to remove. Run 'getnewip -l' for a list of units" && exit 1
+[[ -z "$unitFiles" ]] && echo ">> No configs given to remove. Run 'getnewip -l' for a list of units" && exit 1
 
 echo "> Preparing to remove '$unitFiles'."
 
 for unit in $unitFiles
 do
-	unitFullFileName=$unit
-	! echo $unitFullFileName | grep -q ".conf" && unitFullFileName="$unitFullFileName.conf"
-	if [ -f /etc/getnewip/units/$unitFullFileName ]
+	unitFullFileName="$unit"
+	! echo "$unitFullFileName" | grep -q ".conf" && unitFullFileName="$unitFullFileName.conf"
+	if [ -f /etc/getnewip/units/"$unitFullFileName" ]
 	then
 		echo "> Removing unit '$unit'."
-		if rm -v /etc/getnewip/units/$unitFullFileName
+		if rm -v /etc/getnewip/units/"$unitFullFileName"
 		then
 			echo "> Unit '$unit' removed."
 		else
@@ -523,7 +551,7 @@ local configFiles opt arrayOpts
 configFiles="$@"
 arrayOpts=()
 
-[[ $configFiles = "-a" || $configFiles = "--all" ]] && configFiles=$(listConfigUnits a)
+[[ "$configFiles" = "-a" || "$configFiles" = "--all" ]] && configFiles=$(listConfigUnits a)
 
 for opt in $configFiles
 do
@@ -535,17 +563,17 @@ then
 	helpMenu
 
 else
-	if ! $isLooped
+	if ! "$isLooped"
 	then
 		configLoad "$configFiles"
 
-	elif $isLooped
+	elif "$isLooped"
 	then
 		while true
 		do
 			configLoad "$configFiles"
 			echo "> Waiting '$loopDelayTime'."
-			sleep $loopDelayTime
+			sleep "$loopDelayTime"
 		done
 	fi
 fi
