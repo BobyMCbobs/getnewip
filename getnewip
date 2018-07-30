@@ -478,7 +478,7 @@ function checkToEnableSystemdService() {
 
 local cont
 which systemctl > /dev/null || return 1
-[ -f /etc/systemd/system/getnewip ] || return 1
+[ -f /etc/systemd/system/getnewip.service ] || return 1
 if ! systemctl is-active --quiet getnewip
 then
 	echo "> It appears that the systemd server is not enabled."
@@ -490,6 +490,7 @@ then
 		;;
 	esac
 fi
+return 0
 
 }
 
