@@ -479,14 +479,15 @@ function checkToEnableSystemdService() {
 local cont
 which systemctl > /dev/null || return 1
 [ -f /etc/systemd/system/getnewip.service ] || return 1
-if ! systemctl is-active --quiet getnewip
+if ! systemctl is-active --quiet getnewip || ! systemctl is-enabled --quiet getnewip
 then
 	echo "> It appears that the systemd server is not enabled."
 	read -r -p "> Would you like to enable it? [y|*] " cont
 	case "$cont" in
 		y|Y)
-			"$sudoProg" systemctl start getnewip || return 1
-			"$sudoProg" systemctl enable getnewip || return 1
+			"$sudoProg" systemctl start getnewip > /dev/null || return 1
+			"$sudoProg" systemctl enable getnewip > /dev/null || return 1
+			echo "> getnewip has been enabled and started."
 		;;
 	esac
 fi
