@@ -1,20 +1,24 @@
 Name:           getnewip
 Version:        2.2
 Release:        1%{?dist}
-Summary:        Sync dynamic public IP address of GNU/Linux servers with the hostname in a user's SSH config, via Dropbox.
+Summary:        Remote server IP to SSH config hostname manager
 BuildArch:	noarch
-License:        GPLv3
+License:        GPL-3.0
+Group:		Productivity/Networking/System
 URL:            https://gitlab.com/BobyMCbobs/%{name}
 Source0:        https://gitlab.com/BobyMCbobs/%{name}/-/archive/%{version}/%{name}-%{version}.zip
 Requires:       bash, netcat-openbsd, curl, openssh
-
+BuildRequires:	unzip
 
 %description
-Sync dynamic public IP address of GNU/Linux servers with the hostname in a user's SSH config via Dropbox.
+Sync a dynamic public IP address of a GNU/Linux server with the hostname in a your SSH config, via Dropbox.
 
 
 %prep
 %autosetup
+
+
+%build
 
 
 %install
@@ -24,27 +28,26 @@ Sync dynamic public IP address of GNU/Linux servers with the hostname in a user'
 %files
 %license LICENSE
 %doc README.md
+%config /etc/%{name}/%{name}-blank.conf
+%config /etc/%{name}/%{name}-settings.conf
+%config /usr/lib/systemd/system/%{name}.service
+%dir /etc/%{name}
+%dir /etc/%{name}/units
+%dir /usr/lib/systemd/system/
 /usr/bin/%{name}
 /usr/share/bash-completion/completions/%{name}
-/etc/systemd/system/%{name}.service
-/etc/%{name}/%{name}-blank.conf
-/etc/%{name}/%{name}-settings.conf
+
+
+%postinst
 
 
 %preun
-systemctl disable getnewip
-systemctl stop getnewip
-
-
-%post
-mkdir -p /etc/getnewip/units
-
-
-%postun
-rm -rf /etc/getnewip
+/usr/bin/systemctl daemon-reload > /dev/null
+/usr/bin/systemctl %{name}.service > /dev/null
 
 
 %changelog
 * Fri May 25 2018 caleb
 - Init to RPM
+
 

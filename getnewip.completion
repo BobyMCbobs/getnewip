@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 _getnewip() {
 	local cur prev units i unitCount

@@ -15,15 +15,15 @@ install:
 	@chmod 755 $(DESTDIR)$(COMPLETIONDIR)/getnewip
 	@mkdir $(DESTDIR)/etc/getnewip/units
 	@if [ -z $(NOSYSTEMD) ]; then \
-	mkdir -p $(DESTDIR)/etc/systemd/system; \
-	cp getnewip.service $(DESTDIR)/etc/systemd/system; fi;
+	mkdir -p $(DESTDIR)/usr/lib/systemd/system; \
+	cp getnewip.service $(DESTDIR)/usr/lib/systemd/system; fi;
 
 uninstall:
 	@rm -rf $(DESTDIR)$(PREFIX)/bin/getnewip
 	@rm -rf $(DESTDIR)$(COMPLETIONDIR)/getnewip
 	@rm -rf $(DESTDIR)/etc/getnewip
 	@if [ -z $(NOSYSTEMD) ]; then \
-	rm -rf $(DESTDIR)/etc/systemd/system/getnewip.service; fi;
+	rm -rf $(DESTDIR)/usr/lib/systemd/system/getnewip.service; fi;
 
 prep-deb:
 	@mkdir -p build/getnewip
