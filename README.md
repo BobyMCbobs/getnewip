@@ -13,13 +13,18 @@ Utilising Dropbox as a middle man for storing IP addresses, getnewip downloads t
 - Change multiple user SSH config entries.  
 - Well configurable.  
 
+##### Where to get it
+Ubuntu: ppa:bobymcbobs/ppa
+openSUSE, SUSE, Fedora, ScientificLinux, RHEL, CentOS: [OBS](https://software.opensuse.org/package/getnewip)  
+Arch Linux: [AUR](https://aur.archlinux.org/packages/getnewip)  
+
 ##### Packaging
 Debian:  
 	Binary: `make deb-pkg`  
 	Source: `make deb-src`  
 CentOS/Fedora specs: support/specs/CentOS-Fedora  
 openSUSE specs: support/specs/openSUSE  
-Arch Linux: [AUR](https://aur.archlinux.org/packages/getnewip)  
+Arch Linux: support/arch/PKGBUILD  
 Zip archive: `make build-zip`  
 
 ##### Installation

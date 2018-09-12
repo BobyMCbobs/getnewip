@@ -7,11 +7,10 @@ License:        GPL-3.0
 Group:		Productivity/Networking/System
 URL:            https://gitlab.com/BobyMCbobs/%{name}
 Source0:        https://gitlab.com/BobyMCbobs/%{name}/-/archive/%{version}/%{name}-%{version}.zip
-%if %{defined fedora} || %{defined rhel_version} || %{defined centos_version}
-Requires:       bash, nc, curl, openssh-clients
-%endif
 %if %{defined suse_version}
 Requires:       bash, netcat-openbsd, curl, openssh
+%else
+Requires:       bash, nc, curl, openssh-clients
 %endif
 BuildRequires:	unzip
 BuildRequires:	systemd
