@@ -14,7 +14,7 @@ Utilising Dropbox as a middle man for storing IP addresses, getnewip downloads t
 - Well configurable.  
 
 ##### Where to get it
-Ubuntu: ppa:bobymcbobs/ppa
+Ubuntu: ppa:bobymcbobs/ppa  
 openSUSE, SUSE, Fedora, ScientificLinux, RHEL, CentOS: [OBS](https://software.opensuse.org/package/getnewip)  
 Arch Linux: [AUR](https://aur.archlinux.org/packages/getnewip)  
 
