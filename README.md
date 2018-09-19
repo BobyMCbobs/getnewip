@@ -1,6 +1,6 @@
 # getnewip
 
-#### Release version: 2.2
+#### Release version: 2.2.1
 
 ##### Description
 getnewip is a way to dodge having to setup a static IP address for GNU/Linux devices for user SSH config files.  

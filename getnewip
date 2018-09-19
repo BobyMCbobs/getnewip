@@ -20,7 +20,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-VERSION=2.2
+VERSION=2.2.1
 
 function helpMenu() {
 #print help menu
@@ -146,15 +146,32 @@ echo "getnewip v$VERSION"
 
 function getDefaultUnitConfig() {
 
-echo "unitName=''				## mainServer, workServer, serverAtHome, etc. A pretty name which is the same as a unit used with uploadnewip.
-localReferenceDevice=''			## Address of local server: xxx.xxx.xxx.xxx (i.e 192.168.0.1).
-localTestPorts=()			## open local ports to test from localReferenceDevice. i.e: (22 80 443) etc...
-portCheckTimeOut=			## amount of time to wait until stop checking if port is active i.e: 3 (seconds).
-pingServer=''				## always up external server to ping. i.e: '8.8.8.8'.
-SSHcfgHost=('')				## .ssh/config host(s) to modify i.e serverRemote, homeserver.
-dropboxFolder=''			## dropbox app folder i.e ServerIP, IP, Addresses.
-includedUsers=('')			## user(s) to effect. i.e: ('jane' 'john' 'mark')
-dropboxAppKey=''			## dropbox app key -- It should be a 64 character string."
+echo "## mainServer, workServer, serverAtHome, etc. A pretty name which is the same as a unit used with uploadnewip.
+unitName=''
+
+## Address of local server: xxx.xxx.xxx.xxx (i.e 192.168.0.1).
+localReferenceDevice=''
+
+## open local ports to test from localReferenceDevice. i.e: (22 80 443) etc...
+localTestPorts=()
+
+## amount of time to wait until stop checking if port is active i.e: 3 (seconds).
+portCheckTimeOut=
+
+## always up external server to ping. i.e: '8.8.8.8'.
+pingServer=''
+
+## .ssh/config host(s) to modify i.e serverRemote, homeserver.
+SSHcfgHost=('')
+
+## dropbox app folder i.e ServerIP, IP, Addresses.
+dropboxFolder=''
+
+## user(s) to effect. i.e: ('jane' 'john' 'mark')
+includedUsers=('')
+
+## dropbox app key -- It should be a 64 character string.
+dropboxAppKey=''"
 
 }
 
@@ -478,7 +495,7 @@ function checkToEnableSystemdService() {
 
 local cont
 which systemctl > /dev/null || return 1
-[ -f /etc/systemd/system/getnewip.service ] || return 1
+[ -f /usr/lib/systemd/systemgetnewip.service ] || return 1
 if ! systemctl is-active --quiet getnewip || ! systemctl is-enabled --quiet getnewip
 then
 	echo "> It appears that the systemd server is not enabled."
