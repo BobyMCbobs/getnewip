@@ -1,16 +1,28 @@
+getnewip (2.2.1-1) bionic; urgency=medium
+
+  * Fixed
+  * -----
+  * - systemd service starting/enabling
+  *
+  * Changed
+  * -------
+  * - Put comments of config files on line before
+
+ -- Caleb Woodbine <calebwoodbine.public@gmail.com>  Thu, 20 Sep 2018 11:10:15 +1200
+
 getnewip (2.2.0-1) bionic; urgency=medium
 
   * Added
   * -----
   * > -v|--version for displaying version information.
-  * > Extended compatibilty across distros (Ubuntu, Debian, Raspbian, Fedora, CentOS, openSUSE (Leap & Tumbleweed). 
+  * > Extended compatibilty across distros (Ubuntu, Debian, Raspbian, Fedora, CentOS, openSUSE (Leap & Tumbleweed).
   *
   * Changed
   * -------
   * > Debian package description.
   * > unitName replaces gniUnit, to avoid confusion and match closer with uploadnewip.
   * > Root group now owns the unit config file, 0600 permissions.
-  * > Test mode now overrides the same IP address (as it's supposed to).  
+  * > Test mode now overrides the same IP address (as it's supposed to).
   *
   * Fixed
   * -----

@@ -1,6 +1,6 @@
 # Maintainer: Caleb Woodbine <gitlab.com/BobyMCbobs>
 pkgname=getnewip
-pkgver=2.2
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Sync dynamic public IP addresses of GNU/Linux servers with the hostname in a user's SSH config file, via Dropbox."
 arch=('any')

@@ -1,5 +1,5 @@
 Name:           getnewip
-Version:        2.2
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        Remote server IP to SSH config hostname manager
 BuildArch:	noarch
